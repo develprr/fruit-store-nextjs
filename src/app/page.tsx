@@ -1,11 +1,12 @@
-import { fruits } from "@/data/fruits";
+import { getFruits } from "@/lib/fruits";
 import FruitCard from "@/components/FruitCard";
 
-// This is a SERVER COMPONENT by default in Next.js App Router.
-// The fruit data is loaded and the grid is rendered on the server.
-// No JavaScript is shipped to the client for this page component.
+// This is a SERVER COMPONENT — it queries PostgreSQL directly.
+// No API layer needed. The data never touches the client bundle.
 
-export default function Home() {
+export default async function Home() {
+  const fruits = await getFruits();
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
       <div className="text-center mb-10">
@@ -24,7 +25,7 @@ export default function Home() {
       </div>
 
       <footer className="text-center mt-16 pb-8 text-gray-400 text-sm">
-        Built with Next.js + TypeScript + Tailwind CSS
+        Built with Next.js + PostgreSQL + TypeScript + Tailwind CSS
       </footer>
     </main>
   );
